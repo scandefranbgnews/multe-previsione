@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Multe Bergamo 2027: previsto e netto</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root { --blu:#00284b; --arancio:#eb5c3c; --grigio:#e9edf1; --testo:#1c2b3a; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Roboto Condensed', Arial Narrow, sans-serif; color:var(--testo); background:#fff; padding:18px 16px 14px; }
+  h1 { font-size:22px; line-height:1.15; color:var(--blu); }
+  .sub { font-size:14px; color:#5b6b7a; margin:4px 0 18px; }
+  .kpis { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:18px; }
+  .kpi { flex:1 1 140px; border-top:4px solid var(--blu); background:var(--grigio); padding:8px 10px; }
+  .kpi.a { border-top-color:var(--arancio); }
+  .kpi b { display:block; font-size:26px; color:var(--blu); line-height:1.1; }
+  .kpi.a b { color:var(--arancio); }
+  .kpi span { font-size:13px; color:#5b6b7a; }
+  .bar { display:flex; height:46px; width:100%; overflow:hidden; }
+  .bar div { display:flex; align-items:center; justify-content:center; color:#fff; font-weight:700; font-size:16px; width:0; transition:width 1s ease; white-space:nowrap; }
+  .bar .n { background:var(--blu); }
+  .bar .a { background:var(--arancio); }
+  .leg { display:flex; justify-content:space-between; gap:10px; font-size:13px; margin-top:6px; color:#5b6b7a; }
+  .leg b { color:var(--testo); }
+  h2 { font-size:16px; color:var(--blu); margin:22px 0 8px; }
+  .row { display:flex; align-items:center; gap:8px; margin:6px 0; font-size:14px; }
+  .row .l { width:48px; font-weight:700; }
+  .row .t { flex:1; background:var(--grigio); height:26px; }
+  .row .f { height:100%; width:0; display:flex; align-items:center; justify-content:flex-end; padding-right:8px; color:#fff; font-weight:700; transition:width 1s ease; }
+  .fonte { font-size:12px; color:#7a8794; margin-top:16px; }
+  @media (max-width:420px){ h1{font-size:19px} .bar div{font-size:14px} }
+</style>
+</head>
+<body>
+<h1>Multe, dal gettito previsto all’incasso netto</h1>
+<p class="sub">Bilancio di previsione 2027 del Comune di Bergamo</p>
+
+<div class="kpis">
+  <div class="kpi"><b>15,95 mln</b><span>entrate previste dalle multe</span></div>
+  <div class="kpi a"><b>6,96 mln</b><span>accantonati (quasi il 44%)</span></div>
+  <div class="kpi"><b>8,99 mln</b><span>netto, poco meno di 9 milioni</span></div>
+</div>
+
+<div class="bar" aria-label="Ripartizione del gettito previsto">
+  <div class="n" data-w="56.4">Netto 56%</div>
+  <div class="a" data-w="43.6">Accantonato 44%</div>
+</div>
+<div class="leg"><span><b>8.992.000 €</b> al netto dell’accantonamento</span><span><b>6.958.000 €</b> al Fondo crediti di dubbia esigibilità</span></div>
+
+<h2>La previsione di gettito, 2026 e 2027</h2>
+<div class="row"><span class="l">2026</span><div class="t"><div class="f" data-w="90.9" style="background:var(--blu)">14,5 mln</div></div></div>
+<div class="row"><span class="l">2027</span><div class="t"><div class="f" data-w="100" style="background:var(--arancio)">15,95 mln (+10%)</div></div></div>
+
+<p class="fonte">Fonte: delibera della giunta Carnevali del 19 novembre 2026. Il Fondo crediti di dubbia esigibilità è la quota di proventi che il Comune prevede di accertare ma non di riscuotere.</p>
+
+<script>
+  requestAnimationFrame(function(){
+    setTimeout(function(){
+      document.querySelectorAll('[data-w]').forEach(function(e){ e.style.width = e.dataset.w + '%'; });
+    }, 150);
+  });
+</script>
+</body>
+</html>
