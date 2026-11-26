@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Multe Bergamo 2027: dove vanno i soldi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root { --blu:#00284b; --arancio:#eb5c3c; --grigio:#e9edf1; --testo:#1c2b3a; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Roboto Condensed', Arial Narrow, sans-serif; color:var(--testo); background:#fff; padding:14px 16px 6px; }
+  h1 { font-size:22px; line-height:1.15; color:var(--blu); }
+  .sub { font-size:14px; color:#5b6b7a; margin:3px 0 10px; }
+  .blocco { border-bottom:1px solid #d5dce3; }
+  button { all:unset; display:block; width:100%; cursor:pointer; padding:8px 0; }
+  button:focus-visible { outline:2px solid var(--arancio); outline-offset:2px; }
+  .top { display:flex; justify-content:space-between; align-items:baseline; gap:10px; font-size:16px; }
+  .top b { color:var(--blu); font-size:18px; white-space:nowrap; }
+  .top .nome::after { content:' +'; color:var(--arancio); font-weight:700; }
+  .blocco.open .nome::after { content:' −'; }
+  .track { background:var(--grigio); height:14px; margin-top:6px; }
+  .fill { height:100%; width:0; background:var(--arancio); transition:width 1s ease; }
+  .blocco:nth-child(2) .fill { background:var(--blu); }
+  .blocco:nth-child(3) .fill { background:#4a6c8c; }
+  ul { list-style:none; max-height:0; overflow:hidden; transition:max-height .35s ease; }
+  .blocco.open ul { max-height:320px; padding-bottom:6px; }
+  li { display:flex; justify-content:space-between; gap:10px; font-size:14px; padding:4px 0 4px 12px; color:#41505f; border-left:3px solid var(--arancio); margin:3px 0; }
+  li b { color:var(--testo); white-space:nowrap; }
+  .tot { margin-top:8px; font-size:14px; line-height:1.25; color:#5b6b7a; }
+  .fonte { font-size:12px; color:#7a8794; margin-top:4px; }
+  @media (max-width:420px){ h1{font-size:19px} .top{font-size:15px} }
+</style>
+</head>
+<body>
+<h1>Dove vanno i soldi delle multe</h1>
+<p class="sub">Il 50% vincolato alla sicurezza stradale: 4.496.000 euro. Tocca una voce per vedere il dettaglio.</p>
+
+<div id="grafico"></div>
+
+<p class="tot">Altri 50.000 euro, da sanzioni rilevate su strade di altri enti, andranno alla manutenzione delle infrastrutture stradali.</p>
+<p class="fonte">Fonte: delibera della giunta Carnevali del 19 novembre 2026.</p>
+
+<script>
+  var TOT = 4496;
+  var dati = [
+    { nome:'Altri interventi per la sicurezza stradale', v:2248, sub:[
+      ['Illuminazione pubblica (manutenzione ordinaria)', '531.000 €'],
+      ['Videosorveglianza', '524.600 €'],
+      ['Strade comunali (manutenzione ordinaria)', '509.500 €'],
+      ['Controllo e accertamento violazioni, previdenza complementare Polizia locale', '357.000 €'],
+      ['Sicurezza, mobilità ciclistica, assistenza agli alunni, educazione stradale', '325.000 €']
+    ]},
+    { nome:'Segnaletica e semafori (Atb Mobilità)', v:1124, sub:[
+      ['Manutenzione segnaletica orizzontale e verticale e impianti semaforici', 'poco più di 1,1 mln €']
+    ]},
+    { nome:'Polizia locale: controlli e dotazioni', v:1124, sub:[
+      ['Gestione e controllo delle sanzioni', '600.000 €'],
+      ['Automezzi e attrezzature', '435.000 €'],
+      ['Manutenzione strumentazioni e spese generali', '70.700 €'],
+      ['Sistema telematico accessi Ztl', '18.300 €']
+    ]}
+  ];
+  var el = document.getElementById('grafico');
+  dati.forEach(function(d, i){
+    var b = document.createElement('div');
+    b.className = 'blocco';
+    var pct = (d.v / TOT * 100);
+    var tot = d.v === 1124 ? '1,12 mln €' : (d.v/1000).toFixed(2).replace('.', ',') + ' mln €';
+    b.innerHTML = '<button aria-expanded="false"><div class="top"><span class="nome">' + d.nome +
+      '</span><b>' + tot + '</b></div><div class="track"><div class="fill" data-w="' + pct.toFixed(1) + '"></div></div></button><ul>' +
+      d.sub.map(function(s){ return '<li><span>' + s[0] + '</span><b>' + s[1] + '</b></li>'; }).join('') + '</ul>';
+    b.querySelector('button').addEventListener('click', function(){
+      var open = b.classList.toggle('open');
+      this.setAttribute('aria-expanded', open);
+    });
+    el.appendChild(b);
+  });
+  setTimeout(function(){
+    document.querySelectorAll('.fill').forEach(function(e){ e.style.width = e.dataset.w + '%'; });
+  }, 150);
+</script>
+</body>
+</html>
